@@ -9,7 +9,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Basic Calculator",
-  description: "Next.js starter Calculator",
+  description:
+    "A simple and advanced calculator built with Next.js and TypeScript.",
 };
 
 const page = () => {

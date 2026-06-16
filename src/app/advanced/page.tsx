@@ -1,10 +1,17 @@
+import AdvancedCalculator from "@/components/AdvancedCalculator";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/shadcnui/card";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Advanced Calculator",
+  description:
+    "A simple and advanced calculator built with Next.js and TypeScript.",
+};
 const page = () => {
   return (
     <section className="grid h-dvh place-items-center">
@@ -14,7 +21,9 @@ const page = () => {
             Basic Calculator
           </CardTitle>
         </CardHeader>
-        <CardContent></CardContent>
+        <CardContent>
+          <AdvancedCalculator />
+        </CardContent>
       </Card>
     </section>
   );
