@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "./shadcnui/button";
 import { Input } from "./shadcnui/input";
+import { cn } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -20,7 +21,7 @@ const AdvancedCalculator = () => {
   const [output, setOutput] = useState("");
   const allClear = inputOne === "" && inputTwo === "" && output === "";
   const calEmpty = operator === "" || inputOne === "" || inputTwo === "";
-  const mainHandeler = () => {
+  const mainHandler = () => {
     if (inputOne !== "" && inputTwo !== "") {
       const valuOne = Number(inputOne);
       const valueTwo = Number(inputTwo);
@@ -37,11 +38,15 @@ const AdvancedCalculator = () => {
 
           break;
         case "/":
+          if (valueTwo === 0) {
+            setOutput("Cannot divide by zero");
+            break;
+          }
           setOutput((valuOne / valueTwo).toString());
           break;
 
         default:
-          setOutput("Please Select A operator");
+          setOutput("Please Select an operator");
           break;
       }
     }
@@ -93,14 +98,11 @@ const AdvancedCalculator = () => {
           className="col-span-2"
           placeholder="Output"
         />
-        <Button
-          className={calEmpty ? `cursor-not-allowed` : `bg-blue-400 text-white`}
-          disabled={calEmpty}
-          onClick={mainHandeler}>
+        <Button className="bg-blue-400 text-white" disabled={calEmpty} onClick={mainHandler}>
           Calculate
         </Button>
         <Button
-          className={`col-span-3 ${allClear ? `cursor-not-allowed` : `bg-red-500 text-white`} `}
+          className={cn("col-span-3", allClear ? "cursor-not-allowed" : "bg-red-500 text-white")}
           disabled={allClear}
           onClick={clear}>
           All Clear

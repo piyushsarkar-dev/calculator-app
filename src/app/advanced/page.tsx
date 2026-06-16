@@ -18,7 +18,7 @@ const page = () => {
       <Card className="max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl">
-            Basic Calculator
+            Advanced Calculator
           </CardTitle>
         </CardHeader>
         <CardContent>

@@ -36,6 +36,12 @@ const BasicCalculator = () => {
   };
   const divide = () => {
     if (inputOne !== "" && inputTwo !== "") {
+      if (Number(inputTwo) === 0) {
+        setCount("Cannot divide by zero");
+        setInputOne("");
+        setInputTwo("");
+        return;
+      }
       const total = Number(inputOne) / Number(inputTwo);
       setCount(total.toString());
     }
@@ -94,7 +100,7 @@ const BasicCalculator = () => {
         </Button>
       </div>
       <Button
-        disabled={inputOne === "" && inputTwo === ""}
+        disabled={inputOne === "" && inputTwo === "" && !count}
         onClick={reset}
         className="w-full bg-red-500 text-white">
         Reset
