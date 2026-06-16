@@ -1,4 +1,4 @@
-import BasicCalculator from "@/components/BasicCalculator";
+import AdvancedCalculator from "@/components/AdvancedCalculator";
 import {
   Card,
   CardContent,
@@ -8,22 +8,21 @@ import {
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Basic Calculator",
+  title: "Advanced Calculator",
   description:
     "A simple and advanced calculator built with Next.js and TypeScript.",
 };
-
 const page = () => {
   return (
-    <section className="grid h-[90dvh] place-items-center">
-      <Card>
+    <section className="grid h-dvh place-items-center">
+      <Card className="max-w-md">
         <CardHeader>
-          <CardTitle className="grid place-items-center text-2xl">
-            Basic Calculator
+          <CardTitle className="text-center text-2xl">
+            Advanced Calculator
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <BasicCalculator />
+          <AdvancedCalculator />
         </CardContent>
       </Card>
     </section>

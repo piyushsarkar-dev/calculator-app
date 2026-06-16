@@ -15,8 +15,9 @@ const Header = () => {
           </h1>
         </Link>
 
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-4" aria-label="Primary navigation">
           <Link href={"/"}>Home</Link>
+          <Link href={"/advanced"}>Advanced</Link>
 
           <ThemeToggleButton />
         </nav>

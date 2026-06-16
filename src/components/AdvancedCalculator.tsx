@@ -1,0 +1,115 @@
+"use client";
+
+import { useState } from "react";
+import { Button } from "./shadcnui/button";
+import { Input } from "./shadcnui/input";
+import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./shadcnui/select";
+
+const AdvancedCalculator = () => {
+  const [inputOne, setInputOne] = useState("");
+  const [inputTwo, setInputTwo] = useState("");
+  const [operator, setOperator] = useState("");
+  const [output, setOutput] = useState("");
+  const allClear = inputOne === "" && inputTwo === "" && output === "";
+  const calEmpty = operator === "" || inputOne === "" || inputTwo === "";
+  const mainHandler = () => {
+    if (inputOne !== "" && inputTwo !== "") {
+      const valuOne = Number(inputOne);
+      const valueTwo = Number(inputTwo);
+      switch (operator) {
+        case "+":
+          setOutput((valuOne + valueTwo).toString());
+
+          break;
+        case "-":
+          setOutput((valuOne - valueTwo).toString());
+          break;
+        case "*":
+          setOutput((valuOne * valueTwo).toString());
+
+          break;
+        case "/":
+          if (valueTwo === 0) {
+            setOutput("Cannot divide by zero");
+            break;
+          }
+          setOutput((valuOne / valueTwo).toString());
+          break;
+
+        default:
+          setOutput("Please Select an operator");
+          break;
+      }
+    }
+  };
+
+  const clear = () => {
+    setOperator("");
+    setInputOne("");
+    setInputTwo("");
+    setOutput("");
+  };
+  return (
+    <section className="mx-auto grid w-full max-w-md place-items-center gap-3">
+      <div className="grid w-full grid-cols-3 gap-3">
+        <Input
+          type="number"
+          onChange={(e) => setInputOne(e.target.value)}
+          value={inputOne}
+          placeholder="Number One"
+        />
+
+        <Select
+          value={operator}
+          onValueChange={(value) => setOperator(value ?? "")}>
+          <SelectTrigger className="w-full max-w-48">
+            <SelectValue placeholder="Operator" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Operators</SelectLabel>
+              <SelectItem value="+">+</SelectItem>
+              <SelectItem value="-">-</SelectItem>
+              <SelectItem value="*">*</SelectItem>
+              <SelectItem value="/">/</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+
+        <Input
+          type="number"
+          value={inputTwo}
+          onChange={(e) => setInputTwo(e.target.value)}
+          placeholder="Number Two"
+        />
+
+        <Input
+          value={output}
+          disabled
+          className="col-span-2"
+          placeholder="Output"
+        />
+        <Button className="bg-blue-400 text-white" disabled={calEmpty} onClick={mainHandler}>
+          Calculate
+        </Button>
+        <Button
+          className={cn("col-span-3", allClear ? "cursor-not-allowed" : "bg-red-500 text-white")}
+          disabled={allClear}
+          onClick={clear}>
+          All Clear
+        </Button>
+      </div>
+    </section>
+  );
+};
+
+export default AdvancedCalculator;
