@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import { RotateCcwIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./shadcnui/button";
 import { Input } from "./shadcnui/input";
@@ -74,36 +76,57 @@ const BasicCalculator = () => {
       <Input
         placeholder="Preview Show Here"
         value={count}
-        disabled
-        className="w-full"
+        readOnly
+        className={cn(
+          "w-full text-center font-mono tracking-wide transition-all",
+          "bg-muted/40 cursor-default select-all",
+          count.startsWith("Cannot") ?
+            "text-destructive text-xs font-normal md:text-sm"
+          : "text-foreground text-base font-semibold",
+          "focus-visible:border-input focus-visible:ring-0",
+        )}
       />
       <div className="grid w-full grid-cols-4 gap-2">
         <Button
+          type="button"
+          className="hover:bg-primary/90 cursor-pointer font-semibold shadow-xs transition-colors disabled:pointer-events-none disabled:opacity-50"
           disabled={isDisabled}
           onClick={plus}>
           +
         </Button>
         <Button
+          type="button"
+          className="hover:bg-primary/90 cursor-pointer font-semibold shadow-xs transition-colors disabled:pointer-events-none disabled:opacity-50"
           disabled={isDisabled}
           onClick={minus}>
           -
         </Button>
         <Button
+          type="button"
+          className="hover:bg-primary/90 cursor-pointer font-semibold shadow-xs transition-colors disabled:pointer-events-none disabled:opacity-50"
           disabled={isDisabled}
           onClick={multiply}>
           *
         </Button>
         <Button
+          type="button"
+          className="hover:bg-primary/90 cursor-pointer font-semibold shadow-xs transition-colors disabled:pointer-events-none disabled:opacity-50"
           disabled={isDisabled}
           onClick={divide}>
           /
         </Button>
       </div>
       <Button
+        type="button"
         disabled={inputOne === "" && inputTwo === "" && !count}
         onClick={reset}
-        className="w-full bg-red-500 text-white">
+        className={cn(
+          "w-full font-medium shadow-xs transition-all duration-150",
+          "cursor-pointer bg-red-500 text-white hover:bg-red-600 active:bg-red-700",
+          "disabled:pointer-events-none disabled:opacity-50",
+        )}>
         Reset
+        <RotateCcwIcon className="mr-1.5 size-4" />
       </Button>
     </section>
   );

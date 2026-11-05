@@ -1,9 +1,10 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import { RotateCcwIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./shadcnui/button";
 import { Input } from "./shadcnui/input";
-import { cn } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -28,14 +29,12 @@ const AdvancedCalculator = () => {
       switch (operator) {
         case "+":
           setOutput((valuOne + valueTwo).toString());
-
           break;
         case "-":
           setOutput((valuOne - valueTwo).toString());
           break;
         case "*":
           setOutput((valuOne * valueTwo).toString());
-
           break;
         case "/":
           if (valueTwo === 0) {
@@ -94,18 +93,35 @@ const AdvancedCalculator = () => {
 
         <Input
           value={output}
-          disabled
-          className="col-span-2"
+          readOnly
+          className={cn(
+            "col-span-2 font-mono font-medium tracking-wide transition-all",
+            "bg-muted/40 cursor-default select-all",
+            output.startsWith("Cannot") || output.startsWith("Please") ?
+              "text-destructive text-xs font-normal md:text-sm"
+            : "text-foreground text-base font-semibold",
+            "focus-visible:border-input focus-visible:ring-0",
+          )}
           placeholder="Output"
         />
-        <Button className="bg-blue-400 text-white" disabled={calEmpty} onClick={mainHandler}>
+        <Button
+          type="button"
+          className="cursor-pointer bg-blue-600 text-white shadow-xs transition-colors duration-150 hover:bg-blue-700 active:bg-blue-800 disabled:pointer-events-none disabled:opacity-50"
+          disabled={calEmpty}
+          onClick={mainHandler}>
           Calculate
         </Button>
         <Button
-          className={cn("col-span-3", allClear ? "cursor-not-allowed" : "bg-red-500 text-white")}
+          type="button"
+          className={cn(
+            "col-span-3 font-medium shadow-xs transition-all duration-150",
+            "cursor-pointer bg-red-500 text-white hover:bg-red-600 active:bg-red-700",
+            "disabled:pointer-events-none disabled:opacity-50",
+          )}
           disabled={allClear}
           onClick={clear}>
           All Clear
+          <RotateCcwIcon className="mr-1.5 size-4" />
         </Button>
       </div>
     </section>
